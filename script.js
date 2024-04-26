@@ -5,50 +5,56 @@ var weeks = getColumn(url, 6)
 var authors = getColumn(url, 2)
 
 function getPublisher(bookName){
-    var match = "";
+    var match = "Book not found";
 
     for(var i = 0; i < bookNames.length; i++){
-        if(bookNames[i] == bookName){
+        if(bookNames[i].toLowerCase() == bookName.toLowerCase() ){
             match = publishers[i];
-        }
-        
-    }
-    return match;
-}
+        }  
+       
+    
+    } 
+    return match; 
+   
+} 
 
-//console.log(getPublisher("CAMINO ISLAND"));
+console.log(getPublisher("the help")); 
 
 
 function getBooks(author){
     var matches = [];
 
     for(var i = 0; i < authors.length; i++){
-        if(authors[i] == author){
+        if(authors[i].toLowerCase() == author.toLowerCase()){
             matches.push(bookNames[i])
         }
     }
+
+    if(matches.length == 0){
+        matches.push("Author not found")
+    }
     return matches;
 }
-//console.log(getBooks("Kristin Hannah"));
+// console.log(getBooks("craig Johnson"));  
 
 function getAuthor(bookName){
-    var match = ""
+    var match = "Author not Found"
 
     for(var i = 0; i < authors.length; i++){
-        if(bookNames[i] == bookName){
+        if(bookNames[i].toLowerCase() == bookName.toLowerCase()){
             match = authors[i];
         }
     }
     return match;
 
 }
-console.log(getAuthor("LIFE OF PI"))
+// console.log(getAuthor("wIred")) 
 
 function findLongestTitle(publisher){
     var longest = "";
 
     for(var i = 0; i < authors.length; i++){
-        if(publishers[i] == publisher){
+        if(publishers[i].toLowerCase() == publisher.toLowerCase()){
             if(bookNames[i].length > longest.length){
                 longest = bookNames[i];
             }
@@ -57,27 +63,27 @@ function findLongestTitle(publisher){
     return longest;
 }
 
-console.log(findLongestTitle("Penguin Group"))
+//console.log(findLongestTitle("riverhead"))
 
 
 
+function findLongestTime(publisher){
 
-function findMostBooks(publisher){
+    var mostTime = 0;
+    var winner = ""
 
-    var match = "";
-    var mostBooks = 0;
-    
+    for(var i = 0; i < publisher.length; i++){
+        if(publishers[i].toLowerCase() == publisher.toLowerCase()){
 
-    for(var i = 0; i < publishers.length; i++){
-        if(publishers[i]==publisher){
-            if(){
-    
-            }
+        if(weeks[i] > mostTime){
+            winner = bookNames[i]
         }
     }
 }
+    return winner
 
-
+}
+// console.log(findLongestTime("Penguin Press"));
 
 
 
