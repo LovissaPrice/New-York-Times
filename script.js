@@ -3,12 +3,15 @@ var publishers = getColumn(url, 1);
 var bookNames = getColumn(url, 5)
 var weeks = getColumn(url, 6)
 var authors = getColumn(url, 2)
-
-function getPublisher(bookName){
+/*Returns the publisher of an input book name
+@param bookName{string} - the name of desired book (this can be capitalized or lower case but will display "Not Found" if misspelled.)
+The return will be the publisher of a book (string)
+*/
+function getPublisher(bookName){ 
     var match = "Book not found";
 
     for(var i = 0; i < bookNames.length; i++){
-        if(bookNames[i].toLowerCase() == bookName.toLowerCase() ){
+        if(bookNames[i].toLowerCase().includes(bookName.toLowerCase())){
             match = publishers[i];
         }  
        
@@ -18,14 +21,18 @@ function getPublisher(bookName){
    
 } 
 
-console.log(getPublisher("the help")); 
+// console.log(getPublisher("the help")); 
 
+/*Returns the book titles of an input author
+@param author{string} - the name of the desired author (this can be capitalized or lower case but will display "Not Found" if misspelled.)
+The return will be multiple book titles by the author (list)
+function getBooks(author)*/
 
-function getBooks(author){
+function getBooks(author){//returns the book titles of an input author
     var matches = [];
 
     for(var i = 0; i < authors.length; i++){
-        if(authors[i].toLowerCase() == author.toLowerCase()){
+        if(authors[i].toLowerCase().includes(author.toLowerCase())){
             matches.push(bookNames[i])
         }
     }
@@ -37,11 +44,16 @@ function getBooks(author){
 }
 // console.log(getBooks("craig Johnson"));  
 
-function getAuthor(bookName){
-    var match = "Author not Found"
+/* Returns the author of an input book title
+@param bookName{string} - the name of the desired book (this can be capitalized or lower case but will display "Not Found" if misspelled.)
+The return will be the author of the book (string)
+function getAuthor(bookName) */
+
+function getAuthor(bookName){//gets the author of an input book title
+    var match = "Author not Found";
 
     for(var i = 0; i < authors.length; i++){
-        if(bookNames[i].toLowerCase() == bookName.toLowerCase()){
+        if(bookNames[i].toLowerCase().includes(bookName.toLowerCase())){
             match = authors[i];
         }
     }
@@ -50,40 +62,51 @@ function getAuthor(bookName){
 }
 // console.log(getAuthor("wIred")) 
 
-function findLongestTitle(publisher){
+
+/*Finds the longest book title by a certain publisher
+@param publisher{string} - the name of the desired publisher (this can be capitalized or lower case but will display "Not Found" if misspelled.)
+The return will be the book title (string)
+function findLongestTitle(publisher)*/
+
+function findLongestTitle(publisher){//finds the longest title by an input publisher
     var longest = "";
 
     for(var i = 0; i < authors.length; i++){
-        if(publishers[i].toLowerCase() == publisher.toLowerCase()){
-            if(bookNames[i].length > longest.length){
+        if(publisher.toLowerCase().includes(publishers[i].toLowerCase()) && bookNames[i].length > longest.length){
                 longest = bookNames[i];
-            }
+        }
+        if(longest == ""){
+            longest = "That publisher was not found."
         }
     }
     return longest;
 }
 
-//console.log(findLongestTitle("riverhead"))
+//console.log(findLongestTitle(""))
 
+/*Finds the book that has maintained its position on the best sellers' list for the longest time by an input publisher
+@param publisher{string} - the name of the desired publisher (this can be capitalized or lower case but will display "Not Found" if misspelled.)
+The return will be the book title (string)
+function findLongestTime(publisher)*/
 
-
-function findLongestTime(publisher){
+function findLongestTime(publisher){//finds the book with the longest time on the best sellers list by an input publisher
 
     var mostTime = 0;
     var winner = ""
 
     for(var i = 0; i < publisher.length; i++){
-        if(publishers[i].toLowerCase() == publisher.toLowerCase()){
-
-        if(weeks[i] > mostTime){
+        if(publishers[i].toLowerCase().includes(publisher.toLowerCase()) && weeks[i] > mostTime){
             winner = bookNames[i]
-        }
+            mostTime = weeks[i]
+    }
+    if(mostTime == 0){
+        winner = "That publisher was not found."
     }
 }
     return winner
 
 }
-// console.log(findLongestTime("Penguin Press"));
+ console.log(findLongestTime("riverhead"));
 
 
 
